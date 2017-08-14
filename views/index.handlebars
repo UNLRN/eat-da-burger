@@ -1,17 +1,34 @@
-{{#each result}}
-    {{#if result.id}}
-        <form action='/{{this.id}}?_method=PUT' method="POST" class='devoured'>
-            <input type='text' name='' value={{this.burger_name}}>
-            <button type='submit'>DEVOUR IT</button>
-        </form>
-    {{else}}
-        <form action='/{{this.id}}?_method=PUT' method="POST" class='notDevoured'>
-            <input type='text' name='' value={{this.burger_name}}>
-            <button type='submit'>DEVOUR IT</button>
-        </form>
-    {{/if}}
-{{/each}}
-<form action="/" method="POST">
-    <input type="text" name='burgerName'>
-    <button>Submit</button>
-</form>
+<div class='ui container grid'>
+    <div class="eight wide column">
+        {{#each result}}
+            {{#unless this.devoured}}
+                <form action='/{{this.id}}?_method=PUT&devoured=false' method="POST" class='ui form devoured'>
+                    <input type='text' name='{{this.burger_name}}' value={{this.burger_name}}>
+                    <button class='ui button' type='submit'>Devour It</button>
+                </form>
+                <form action="/{{this.id}}?_method=DELETE" method="POST" class="ui form">
+                    <button class="ui button negative">Remove Burger</button>
+                </form>
+            {{/unless}}
+        {{/each}}
+    </div>
+    <div class="eight wide column">
+        {{#each result}}
+            {{#if this.devoured}}
+                <form action='/{{this.id}}?_method=PUT&devoured=true' method="POST" class='ui form notDevoured'>
+                    <input type='text' name='{{this.burger_name}}' value={{this.burger_name}}>
+                    <button class='positive ui button' type='submit'>Make Another</button>
+                </form>
+                <form action="/{{this.id}}?_method=DELETE" method="POST" class="ui form">
+                    <button class="ui button negative">Remove Burger</button>
+                </form>
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+<div class="ui container">
+    <form action="/" method="POST" class='ui form'>
+        <input type="text" name='burgerName'>
+        <button type='submit' class='positive ui button'>Submit</button>
+    </form>
+</div>

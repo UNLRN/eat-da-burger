@@ -15,7 +15,12 @@ let burgers =  {
 		orm.updateOne('burgers', columnCondition, rowCondition, function(err, result){
 			cb(err, result);
 		})
-	}
+    },
+    deleteBurger: function(rowCondition, cb) {
+        orm.deleteOne('burgers', rowCondition, function(err, results) {
+            cb(err, results);
+        })
+    }
 }
 
 module.exports = burgers;

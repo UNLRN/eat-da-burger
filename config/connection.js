@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
 
 if (process.env.CLEARDB_DATABASE_URL) {
-  const connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
+  let connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
 } else {
-  const connection = mysql.createConnection({
+  let connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

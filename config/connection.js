@@ -1,13 +1,17 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
+if (process.env.CLEARDB_DATABASE_URL) {
+  mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
+} else {
+  const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: 'burgers_db'
-});
+  });
+}
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
     return;
